@@ -1,0 +1,1868 @@
+button_card_templates:
+  lightpopup_main:
+    variables:
+      entity: '[[[ return entity.entity_id ]]]'
+      name: '[[[ return entity.attributes.friendly_name ]]]'
+    hold_action:
+      action: fire-dom-event
+      browser_mod:
+        command: popup
+        title: '[[[ return variables.name ]]]'
+        style:
+          $: |
+            .mdc-dialog .mdc-dialog__container {
+              width: 100%;
+            }
+            .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+              width:100%;
+              box-shadow:none;
+            }
+          .: |
+            :host {
+              --mdc-theme-surface: rgba(0,0,0,0);
+              --secondary-background-color: rgba(0,0,0,0);
+              --ha-card-background: rgba(0,0,0,0);
+              --mdc-dialog-scrim-color: rgba(0,0,0,0.8);
+              --mdc-dialog-min-height: 100%;
+              --mdc-dialog-min-width: 100%;
+              --mdc-dialog-max-width: 100%;
+            }
+            mwc-icon-button {
+              color: #FFF;
+            }
+        card:
+          type: custom:light-popup-card
+          entity: '[[[ return variables.entity ]]]'
+          fullscreen: true
+          actionsInARow: 4
+          displayType: slider
+          settings:
+            openButton: More
+            closeButton: Close
+          settingsCard:
+            type: custom:light-entity-card
+            cardOptions:
+              entity: '[[[ return variables.entity ]]]'
+              persist_features: true
+              smooth_color_wheel: true
+  lightpopup_rgb:
+    template: lightpopup_main
+    hold_action:
+      browser_mod:
+        command: popup
+        card:
+          actions:
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                rgb_color:
+                  - 255
+                  - 0
+                  - 0
+              color: '#FF0000'
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                rgb_color:
+                  - 255
+                  - 255
+                  - 0
+              color: '#FFFF00'
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                rgb_color:
+                  - 255
+                  - 0
+                  - 255
+              color: '#FF00FF'
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                rgb_color:
+                  - 0
+                  - 255
+                  - 255
+              color: '#00FFFF'
+  lightpopup_cct:
+    template: lightpopup_main
+    hold_action:
+      browser_mod:
+        command: popup
+        card:
+          actions:
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                brightness_pct: 1
+              color: rgb(70, 70, 70)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                brightness_pct: 33
+              color: rgb(125, 125, 125)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                brightness_pct: 66
+              color: rgb(195, 195, 195)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                brightness_pct: 100
+              color: rgb(255, 255, 255)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                kelvin: 2000
+              color: rgb(255, 236, 151)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                kelvin: 3000
+              color: rgb(212, 226, 185)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                kelvin: 4250
+              color: rgb(169, 216, 219)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                kelvin: 5000
+              color: rgb(156, 222, 255)
+  lightpopup_dim:
+    template: lightpopup_main
+    hold_action:
+      service_data:
+        card:
+          actions:
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                brightness_pct: 1
+              color: rgb(70, 70, 70)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                brightness_pct: 33
+              color: rgb(125, 125, 125)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                brightness_pct: 66
+              color: rgb(195, 195, 195)
+            - service: light.turn_on
+              service_data:
+                entity_id: '[[[ return variables.entity ]]]'
+                brightness_pct: 100
+              color: rgb(255, 255, 255)
+  customcard_style:
+    styles:
+      card:
+        - padding: 10px
+        - padding-top: 3px
+        - padding-bottom: 3px
+        - box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px 0px
+        - border-radius: var(--ha-card-border-radius, 12px)
+        - user-select: none
+      name:
+        - justify-self: start
+        - padding-left: 0px
+        - font-weight: 500
+        - font-size: 14px
+        - align-self: middle
+        - padding-top: 20px
+      img_cell:
+        - justify-content: start
+        - align-items: start
+        - margin: none
+      icon:
+        - margin-top: 5px
+        - width: 30px
+        - height: 30px
+  customcard_31wrapper:
+    template: customcard_style
+    aspect_ratio: 3/1
+    variables:
+      entity_temp: ''
+      entity_hum: ''
+    styles:
+      card:
+        - padding: 0px
+      grid:
+        - grid-template-areas: '"graph"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr
+      custom_fields:
+        graph:
+          - padding: 0px
+          - margin: 0px
+          - align-items: end
+  customcard_21wrapper:
+    template: customcard_style
+    variables:
+      entity_temp: ''
+      entity_hum: ''
+    styles:
+      card:
+        - padding: 5px
+        - padding-top: 0px
+        - padding-bottom: 0px
+        - height: 100%
+      grid:
+        - grid-template-areas: '"graph"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr
+      custom_fields:
+        graph:
+          - padding: 0px
+          - margin: 0px
+          - align-items: end
+  customcard_graph:
+    template: customcard_31wrapper
+    custom_fields:
+      graph:
+        card:
+          type: custom:mini-graph-card
+          name: PC room
+          style: |
+            ha-card > div.states {margin-top: 0px; padding-bottom: 0px} 
+            ha-card .state__value {
+              font-size:25px !important;
+              color: var(--tile-name-text-color, rgba(0, 0, 0, 0.4))
+              }
+            ha-card .state__uom {
+              color: var(--tile-name-text-color, rgba(0, 0, 0, 0.4))
+              }
+            ha-card {
+              border-radius: 0 !important; 
+              box-shadow: none !important;
+              background: transparent;
+            }
+          hours_to_show: 48
+          line_width: 1
+          lower_bound: 15
+          upper_bound: 30
+          lower_bound_secondary: 20
+          upper_bound_secondary: 100
+          show:
+            legend: false
+            icon: false
+            name: false
+            labels: false
+            labels_secondary: false
+          entities:
+            - entity: '[[[ return variables.entity_temp ]]]'
+            - entity: '[[[ return variables.entity_hum ]]]'
+              y_axis: secondary
+              show_state: true
+  customcard_graph_apex:
+    template: customcard_31wrapper
+    custom_fields:
+      graph:
+        card:
+          type: custom:apexcharts-card
+          style: |
+            ha-card .apexcharts-legend-text {
+              color: var(--tile-state-text-color, rgba(0, 0, 0, 0.4)) !important;
+              font-size: 14px !important
+            }
+          hours_12: false
+          graph_span: 36h
+          apex_config:
+            chart:
+              sparkline:
+                enabled: true
+              height: 80%
+            legend:
+              position: top
+              floating: false
+            grid:
+              show: false
+          yaxis:
+            - id: temp
+              min: 10
+              max: 45
+              show: false
+            - id: hum
+              show: false
+              min: 0
+              max: 90
+          series:
+            - entity: '[[[ return variables.entity_temp ]]]'
+              yaxis_id: temp
+              color: var(--accent-color)
+              name: temp
+              stroke_width: 1
+              type: area
+              fill_raw: last
+              opacity: 0.2
+            - entity: '[[[ return variables.entity_target ]]]'
+              transform: return entity.attributes.temperature
+              yaxis_id: temp
+              color: var(--accent-color)
+              name: target
+              stroke_width: 1
+              type: line
+              opacity: 0.2
+            - entity: '[[[ return variables.entity_hum ]]]'
+              yaxis_id: hum
+              color: '#3498db'
+              name: hum
+              stroke_width: 1
+              type: area
+              opacity: 0.1
+              fill_raw: last
+  subsection_hide_inactive:
+    state:
+      - operator: regex
+        value: ^(off|unknown|unavailable)$
+        styles:
+          card:
+            - display: none
+            - width: 0px !important
+      - operator: '=='
+        value: 0
+        styles:
+          card:
+            - display: none
+            - width: 0px !important
+      - operator: default
+        styles:
+          card:
+            - display: flex
+            - width: 22px
+  subsection_err_handling:
+    state_display: |
+      [[[ 
+        if (!entity) return 'N/A';
+        else if (entity.state === 'unavailable') return 'N/A';
+        else if (entity.state === 'unknown') return 'UKN';
+        else if (entity.attributes.device_class == 'temperature') return (Math.round(entity.state*100)/100).toFixed(1);
+        else if (entity.attributes.device_class == 'window' || entity.attributes.device_class == 'door')
+        {
+          switch (entity.state.toLowerCase())
+          {
+            case 'on':
+              return 'Open';
+              break;
+            case 'off':
+              return 'Closed';
+              break;
+          }
+        }
+        else return entity.state.charAt(0).toUpperCase() + entity.state.slice(1);
+      ]]]
+    state:
+      - operator: regex
+        value: unavailable|unknown
+        styles:
+          state:
+            - color: rgba(255,0,0,0.5)
+          label:
+            - color: rgba(255,0,0,0.5)
+          icon:
+            - color: rgba(255,0,0,0.5)
+  card_hide_noentity:
+    styles:
+      card:
+        - display: |
+            [[[ return entity == null ? 'none' : 'undefined' ]]]
+  card_hide_unavailable:
+    styles:
+      card:
+        - display: >
+            [[[ return typeof entity === "undefined" || entity.state ==
+            'unavailable' ? 'none' : 'undefined' ]]]
+  card_hide_unavailable2:
+    state:
+      - value: unavailable
+        styles:
+          card:
+            - display: none !important
+  mycustomcard:
+    template:
+      - customcard_style
+      - subsection_err_handling
+      - card_hide_noentity
+    variables:
+      view: >
+        [[[ return '/' + window.location.pathname.split('/').slice()[1] + '/'
+        ]]]
+    show_icon: true
+    show_state: false
+    aspect_ratio: 1/1
+    card_size: 1
+    tap_action:
+      action: navigate
+    hold_action:
+      action: call-service
+    styles:
+      card:
+        - display: |
+            [[[ return entity == null ? 'none' : 'undefined' ]]]
+      grid:
+        - grid-template-areas: '"i window" "n n" "misc temp"'
+        - grid-template-columns: 1fr 60%
+        - grid-template-rows: 1fr 1fr 1fr 0fr
+      custom_fields:
+        window:
+          - padding-bottom: 0px
+          - align-self: end
+          - justify-self: end
+          - pointer-events: none
+          - align-self: center
+        misc:
+          - padding-bottom: 0px
+          - align-self: end
+          - justify-self: start
+          - color: var(--tile-on-state-text-color, rgba(0, 0, 0, 1))
+          - pointer-events: none
+        temp:
+          - padding-bottom: 0px
+          - align-self: end
+          - justify-self: end
+          - margin-right: '-5px'
+          - color: var(--tile-on-state-text-color, rgba(0, 0, 0, 1))
+          - pointer-events: none
+  mycustomcard_state_colors:
+    styles:
+      state:
+        - color: red
+    state:
+      - value: 'on'
+        styles:
+          icon:
+            - color: var(--state-light-active-color)
+          name:
+            - color: var(--tile-on-name-text-color, rgba(0, 0, 0, 1))
+          state:
+            - color: var(--tile-on-state-text-color, rgba(0, 0, 0, 1))
+      - value: open
+        styles:
+          icon:
+            - color: var(--state-light-active-color)
+          name:
+            - color: var(--tile-on-name-text-color, rgba(0, 0, 0, 1))
+          state:
+            - color: var(--tile-on-state-text-color, rgba(0, 0, 0, 1))
+      - value: Washing
+        styles:
+          icon:
+            - color: var(--state-light-active-color)
+          name:
+            - color: var(--tile-on-name-text-color, rgba(0, 0, 0, 1))
+          state:
+            - color: var(--tile-on-state-text-color, rgba(0, 0, 0, 1))
+      - value: Empty it!
+        styles:
+          icon:
+            - color: orange
+          state:
+            - color: orange
+      - value: 'off'
+        styles:
+          icon:
+            - color: var(--paper-item-icon-color)
+          name:
+            - color: var(--tile-name-text-color, rgba(0, 0, 0, 0.4))
+          state:
+            - color: var(--tile-state-text-color, rgba(0, 0, 0, 0.4))
+      - value: idle
+        styles:
+          icon:
+            - color: var(--paper-item-icon-color)
+          name:
+            - color: var(--tile-name-text-color, rgba(0, 0, 0, 0.4))
+          state:
+            - color: var(--tile-state-text-color, rgba(0, 0, 0, 0.4))
+      - value: closed
+        styles:
+          icon:
+            - color: var(--paper-item-icon-color)
+          name:
+            - color: var(--tile-name-text-color, rgba(0, 0, 0, 0.4))
+          state:
+            - color: var(--tile-state-text-color, rgba(0, 0, 0, 0.4))
+  mycustomcard_background_colors:
+    state:
+      - value: 'on'
+        operator: '=='
+        styles:
+          card:
+            - background-color: blue
+      - value: default
+        styles:
+          card:
+            - background-color: yellow
+  mycustomcard_action:
+    template:
+      - mycustomcard
+      - mycustomcard_state_colors
+      - mycustomcard_background_colors
+    show_state: true
+    tap_action:
+      action: none
+    styles:
+      grid:
+        - grid-template-areas: '"i window" "n n" "s s"'
+        - grid-template-columns: 1fr 60%
+        - grid-template-rows: 1fr 1fr 1fr
+      img_cell:
+        - justify-content: start
+        - align-items: center
+      state:
+        - font-size: 14px
+        - font-weight: 300
+        - align-self: start
+        - justify-self: start
+      custom_fields:
+        window:
+          - padding-top: 5px
+          - width: 35px
+          - align-self: start
+          - justify-self: end
+          - pointer-events: none
+    custom_fields:
+      window: >
+        [[[ if (entity != null && entity.state == "on" &&
+        entity.attributes.brightness) {
+            const brightness = Math.round(entity.attributes.brightness/2.54);
+            const radius = 25; const circumference = radius * 2 * Math.PI;
+            return `<svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="${radius}"
+            stroke="var(--active-color)" stroke-width="2" fill="none"
+            style="transform: rotate(-90deg); transform-origin: 50% 50%;
+            stroke-dasharray: ${circumference};
+            stroke-dashoffset: ${circumference - brightness / 100 * circumference};" />
+            <text x="50%" y="54%" fill="var(--active-color)" font-size="13" font-weight="normal"
+            text-anchor="middle" alignment-baseline="middle">
+            ${brightness}%</text></svg>`;} ]]]
+  mycustomcard2:
+    template:
+      - mycustomcard
+      - mycustomcard_state_colors
+    styles:
+      custom_fields:
+        temp:
+          - margin-right: 0px
+  mycustomcard_action_toggle:
+    template: mycustomcard_action
+    tap_action:
+      action: toggle
+  subsection_selected_entities:
+    variables:
+      entity: null
+  subsection_style:
+    show_name: false
+    show_icon: true
+    show_state: false
+    tap_action:
+      action: none
+    double_tap_action:
+      action: none
+    hold_action:
+      action: none
+    styles:
+      card:
+        - background-color: transparent
+    style: |
+      ha-card {
+        box-shadow: none;
+      }
+  subsection_window:
+    template:
+      - subsection_style
+      - subsection_err_handling
+    styles:
+      icon:
+        - align-self: end
+        - width: 25px
+      img_cell:
+        - justify-content: end
+        - align-items: end
+        - align-self: auto
+  subsection_bottom:
+    template: subsection_style
+    styles:
+      icon:
+        - width: 22px
+        - heigth: 22px
+        - padding: 0px
+        - margin: 0px
+  subsection_temp:
+    template:
+      - subsection_bottom
+      - subsection_err_handling
+    show_name: false
+    show_icon: true
+    show_units: false
+    show_state: true
+    styles:
+      grid:
+        - grid-template-areas: '"s i"'
+        - grid-template-columns: 1fr 22px
+        - grid-template-rows: 1fr
+      state:
+        - justify-self: start
+        - font-size: 12px
+        - margin-top: 6px
+      icon:
+        - color: var(--paper-item-icon-color)
+      card:
+        - padding: 0px
+        - margin: 0px
+title: Home
+views:
+  - title: Home
+    path: home
+    icon: mdi:home
+    badges: []
+    cards:
+      - type: custom:mod-card
+        style:
+          .: |
+            ha-card {
+            margin: 0px 0px;
+            }
+          hui-grid-card:
+            $:
+              div: |
+                button-card:first-of-type {grid-area: 1 / 1 / 1 / 3 !important}
+        card:
+          type: grid
+          style: |
+            :host {padding: 0px 13px !important}
+            ha-card {padding: 0px 13px !important}
+          square: true
+          columns: 3
+          cards:
+            - type: custom:button-card
+              template:
+                - customcard_21wrapper
+              custom_fields:
+                graph:
+                  card:
+                    type: weather-forecast
+                    entity: weather.domov
+                    name: Home
+                    show_forecast: true
+                    style: |
+                      ha-card {
+                        padding: 5px!important;
+                        display: flex!important;
+                        flex-direction: column!important;
+                        background: transparent!important;
+                        box-shadow: none!important;
+                        border-radius:0!important;
+                        color: var(--primary-text-color);
+                      }
+                      .content {
+                         display: flex!important;
+                         flex-direction: row!important;
+                         color: var(--primary-text-color)
+                      }
+                      .icon-image {
+                          min-width: auto!important;
+                      }
+                      .icon-image > * {
+                          height: 32px!important;
+                          flex: 0 0 32px!important;
+                      }
+
+                      .info 
+                      {
+                        flex-direction: row !important; 
+                      }
+
+                      .info .name-state {
+                          font-weight: 500;
+                          float:left
+                      }
+                      .info .name-state .state {
+                          font-size:14px!important;
+                          text-align:left;
+
+                      }
+                      .info .name-state .name {
+                          font-size:4px!important;
+                          display: none;
+
+                      }
+                      .info .temp-attribute {
+                          width:100%;
+                          font-weight: 500;
+                          float:right
+                      }
+                      .info .temp-attribute .temp {
+                              font-size: 16px!important;
+                      }
+                      .info .temp-attribute .temp span {
+                              font-size: 14px!important;
+                      }
+                      .forecast {
+                          font-size: 14px!important;
+                          padding-top: 5px!important;
+                          padding: 1px !important;
+                      }
+                      .forecast-image-icon {
+                          padding:0!important;
+                          height: 24px;
+                      }
+                      .forecast-image-icon > * {
+                          width:30px!important;
+                          height:30px!important;
+                          margin: 0 auto!important;
+                      }
+                      .forecast .temp {
+                          margin-top:0!important;
+                          font-size:12px!important;
+                          font-weight: 400;
+                          color: var(--primary-text-color)
+                      }
+                      .forecast .templow {
+                          display:none;
+                      }
+            - type: custom:button-card
+              template: mycustomcard
+              name: House
+              entity: binary_sensor.house_entries_all
+              tap_action:
+                navigation_path: house
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.all_lights
+              custom_fields:
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.gate_state
+                    icon: |
+                      [[[ 
+                          return  (states['binary_sensor.gate_state'].state === 'on' ? 'mdi:gate-open' : 'mdi:gate');
+                      ]]]
+                misc:
+                  card:
+                    type: custom:stack-in-card
+                    mode: horizontal
+                    style: |
+                      ha-card {
+                        box-shadow: none;
+                      }
+                    cards:
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                        entity: binary_sensor.garbage_mixed
+                        styles:
+                          icon:
+                            - color: orange
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                        entity: sensor.netatmo_home_rain
+                        icon: mdi:weather-rainy
+                        styles:
+                          icon:
+                            - color: lightblue
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                        entity: binary_sensor.garbage_bio
+                        styles:
+                          icon:
+                            - color: orange
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                          - card_hide_unavailable
+                        entity: switch.zb_switch1
+                        icon: mdi:pine-tree
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                          - card_hide_unavailable
+                        entity: switch.watervalve_state
+            - type: custom:button-card
+              template: mycustomcard
+              name: Bedroom
+              entity: light.lights_bedroom
+              icon: mdi:lightbulb-group
+              tap_action:
+                navigation_path: bedroom
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.lights_bedroom
+              custom_fields:
+                temp:
+                  card:
+                    type: custom:button-card
+                    template: subsection_temp
+                    entity: sensor.sleeping_temperature
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.sleeping_room_window
+                misc:
+                  card:
+                    type: custom:stack-in-card
+                    mode: horizontal
+                    style: |
+                      ha-card {
+                        box-shadow: none;
+                      }
+                    cards:
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                        entity: light.hue_go
+                        icon: mdi:wall-sconce-round-variant-outline
+                        styles:
+                          icon:
+                            - color: orange
+            - type: custom:button-card
+              template: mycustomcard
+              name: Childroom
+              entity: light.lights_childroom
+              icon: mdi:lightbulb-group
+              tap_action:
+                navigation_path: childroom
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.lights_childroom
+              custom_fields:
+                temp:
+                  card:
+                    type: custom:button-card
+                    template: subsection_temp
+                    entity: sensor.childroom_temperature
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.child_room_window
+                misc:
+                  card:
+                    type: custom:stack-in-card
+                    mode: horizontal
+                    style: |
+                      ha-card {
+                        box-shadow: none;
+                      }
+                    cards:
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                        entity: switch.zb_switch2
+                        icon: mdi:string-lights
+            - type: custom:button-card
+              template: mycustomcard
+              name: PC room
+              entity: light.pcroom_all_lights
+              icon: mdi:lightbulb-group
+              tap_action:
+                navigation_path: pcroom
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.pcroom_all_lights
+              custom_fields:
+                temp:
+                  card:
+                    type: custom:button-card
+                    template: subsection_temp
+                    entity: sensor.pcroom_temperature
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.pcroom_window
+                misc:
+                  card:
+                    type: custom:stack-in-card
+                    mode: horizontal
+                    style: |
+                      ha-card {
+                        box-shadow: none;
+                      }
+                    cards:
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                        entity: binary_sensor.octoprint_printing
+                        icon: mdi:printer-3d-nozzle
+                        styles:
+                          icon:
+                            - color: orange
+            - type: custom:button-card
+              template: mycustomcard
+              name: Livingroom
+              entity: light.lights_cube
+              icon: mdi:lightbulb-group
+              tap_action:
+                navigation_path: livingroom
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.lights_cube
+              custom_fields:
+                temp:
+                  card:
+                    type: custom:button-card
+                    template: subsection_temp
+                    entity: sensor.livingroom_temperature
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.cube_windows_all
+                misc:
+                  card:
+                    type: custom:stack-in-card
+                    mode: horizontal
+                    style: |
+                      ha-card {
+                        box-shadow: none;
+                      }
+                    cards:
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                          - card_hide_noentity
+                        entity: light.christmas_tree
+                        styles:
+                          card:
+                            - display: >
+                                [[[ if (states['light.christmas_tree'] == null
+                                || states['light.christmas_tree'].state != 'on')
+                                return  'none' ]]]
+                            - width: >
+                                [[[ if (states['light.christmas_tree'] == null
+                                || states['light.christmas_tree'].state != 'on')
+                                return '0px';]]]
+                      - type: custom:button-card
+                        template:
+                          - subsection_bottom
+                          - subsection_hide_inactive
+                        entity: media_player.samsung_q70_series_65
+                        icon: mdi:television-box
+            - type: custom:button-card
+              template: mycustomcard
+              name: Barus
+              entity: light.lights_barus
+              icon: mdi:lightbulb-group
+              tap_action:
+                navigation_path: barus
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.lights_barus
+              custom_fields:
+                temp:
+                  card:
+                    type: custom:button-card
+                    template: subsection_temp
+                    entity: sensor.barusroom_temperature
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.barus_windows_all
+            - type: custom:button-card
+              template: mycustomcard
+              name: Kitchen
+              entity: light.kitchen_all_lights
+              icon: mdi:lightbulb-group
+              tap_action:
+                navigation_path: kitchen
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.kitchen_all_lights
+              custom_fields:
+                temp:
+                  card:
+                    type: custom:button-card
+                    template: subsection_temp
+                    entity: sensor.diningroom_temperature
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.kitchen_windows_all
+            - type: custom:button-card
+              template: mycustomcard
+              name: Hallway / Stairs
+              entity: light.hallway_and_store
+              icon: mdi:lightbulb-group
+              tap_action:
+                navigation_path: stairs
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.stairs_all_lights
+              custom_fields:
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.window_roof_contact
+            - type: custom:button-card
+              template: mycustomcard
+              name: Laundry
+              entity: light.laundry
+              icon: mdi:lightbulb-group
+              custom_fields:
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.laundry_window
+              tap_action:
+                navigation_path: laundry
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.laundry
+            - type: custom:button-card
+              template: mycustomcard
+              name: Bathroom
+              entity: light.bathroom
+              icon: mdi:lightbulb-group
+              tap_action:
+                navigation_path: bathroom
+              custom_fields:
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.window_bathroom
+                misc:
+                  card:
+                    type: custom:button-card
+                    template:
+                      - subsection_bottom
+                    entity: sensor.washing_machine_gui
+                    show_icon: |
+                      [[[  
+                        return (['Washing', 'Empty it!'].indexOf(states['sensor.washing_machine_gui'].state) +1);
+                      ]]]
+                    state:
+                      - value: Empty it!
+                        styles:
+                          icon:
+                            - color: orange
+                      - value: Washing
+                        styles:
+                          icon:
+                            - color: var(--state-light-active-color)
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.bathroom
+            - type: custom:button-card
+              template: mycustomcard
+              name: Toilet
+              entity: light.wc
+              icon: mdi:lightbulb-group
+              tap_action:
+                navigation_path: toilet
+              hold_action:
+                service: light.turn_off
+                service_data:
+                  entity_id: light.wc
+              custom_fields:
+                window:
+                  card:
+                    type: custom:button-card
+                    template: subsection_window
+                    entity: binary_sensor.wc_window
+  - title: pcroom
+    path: pcroom
+    icon: mdi:desktop-classic
+    badges: []
+    cards:
+      - type: custom:mod-card
+        style: |
+          :host {padding: 0px 0px}
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              template: customcard_graph_apex
+              variables:
+                entity_temp: sensor.pcroom_temperature
+                entity_hum: sensor.pcroom_humidity
+                entity_target: climate.trv_pcroom
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action_toggle
+                  name: Ceiling
+                  entity: light.pc_room
+                  state:
+                    - value: 'on'
+                      operator: '=='
+                      styles:
+                        card:
+                          - background-color: green !important
+                        name:
+                          - color: red
+                    - value: default
+                      styles:
+                        card:
+                          - background-color: yellow
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_rgb
+                  name: Hue
+                  entity: light.hue_strip_1
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: Window
+                  entity: binary_sensor.pcroom_window
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard2
+                  name: 3D Printer
+                  entity: binary_sensor.octoprint_printing
+                  custom_fields:
+                    window:
+                      card:
+                        type: custom:button-card
+                        template: subsection_temp
+                        icon: mdi:timer-sand
+                        entity: sensor.octoprint_print_progress
+                        state_display: >-
+                          [[[ return
+                          parseInt(states["sensor.octoprint_print_progress"].state)
+                          + "%" ]]]
+                    temp:
+                      card:
+                        type: custom:button-card
+                        template: subsection_temp
+                        entity: sensor.octoprint_print_time_left
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: HP Printer
+                  entity: sensor.hp_deskjet_2600_series
+  - title: childroom
+    path: childroom
+    icon: mdi:human-baby-changing-table
+    badges: []
+    cards:
+      - type: custom:mod-card
+        style: |
+          ha-card {
+            margin: 0px 0px;
+          }
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              template: customcard_graph_apex
+              variables:
+                entity_temp: sensor.childroom_temperature
+                entity_hum: sensor.childroom_humidity
+                entity_target: climate.trv_childroom
+            - type: grid
+              style: |
+                :host {padding: 0px 13px}
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  name: Ceiling
+                  entity: light.childroom
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: Stars
+                  entity: light.childroom_stars
+                  icon: mdi:star-half-full
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - card_hide_unavailable
+                  name: LED chain
+                  entity: switch.zb_switch2
+                  icon: mdi:string-lights
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: Window
+                  entity: binary_sensor.child_room_window
+  - title: Kitchen
+    path: kitchen
+    icon: mdi:food
+    badges: []
+    cards:
+      - type: custom:mod-card
+        style: |
+          ha-card {
+            margin: 0px 0px;
+          }
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              template: customcard_graph_apex
+              variables:
+                entity_temp: sensor.diningroom_temperature
+                entity_hum: sensor.diningroom_humidity
+                entity_target: climate.trv_pcroom
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: Kitchen
+                  entity: light.kitchen
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  name: Worktop
+                  entity: light.kitchen_worktop
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: Pantry
+                  entity: light.pantry
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: Dining 1
+                  entity: light.dining_room_1
+                  icon: mdi:vanity-light
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: Dining 2
+                  entity: light.dining_room_2
+                  icon: mdi:globe-light
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.door_dining
+                  name: Dining Door
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.window_kitchen1_contact
+                  name: Window 1
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.window_kitchen2_contact
+                  name: Window 2
+  - title: Bedroom
+    path: bedroom
+    icon: mdi:bed
+    badges: []
+    cards:
+      - type: custom:mod-card
+        style: |
+          ha-card {
+            margin: 0px 0px;
+          }
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              template: customcard_graph_apex
+              variables:
+                entity_temp: sensor.sleeping_temperature
+                entity_hum: sensor.sleeping_humidity
+                entity_target: climate.trv_bedroom
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_dim
+                  name: Ceiling
+                  entity: light.bedroom_1
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_dim
+                  name: M
+                  entity: light.bedroom_l
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_dim
+                  name: B
+                  entity: light.bedroom_r
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_rgb
+                  entity: light.hue_go
+                  icon: mdi:wall-sconce-round-variant
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: Window
+                  entity: binary_sensor.sleeping_room_window
+  - title: Livingroom
+    path: livingroom
+    icon: mdi:theater
+    badges: []
+    cards:
+      - type: custom:mod-card
+        style: |
+          :host {padding: 0px 0px}
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              template: customcard_graph_apex
+              variables:
+                entity_temp: sensor.livingroom_temperature
+                entity_hum: sensor.livingroom_humidity
+                entity_target: climate.trv_bedroom
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  entity: light.cube_1
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  entity: light.cube_2
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  entity: light.cube_3
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  entity: light.hue_livingroom1
+                  name: Hue Floor
+                  icon: mdi:floor-lamp
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_rgb
+                  entity: light.cube_under_gallery
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  entity: light.cube_under_gallery_white
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  entity: light.cube_garden
+                  icon: mdi:track-light
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  entity: light.cube_front
+                  icon: mdi:track-light
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - card_hide_unavailable
+                  entity: light.christmas_tree
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.cube_door_front
+                  name: Front
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.cube_door_garden
+                  name: Garden
+                - type: custom:button-card
+                  name: Roof
+                  template:
+                    - mycustomcard2
+                    - mycustomcard_state_colors
+                    - mycustomcard_background_colors
+                  entity: cover.cube_roof_window
+                  show_state: true
+                  styles:
+                    grid:
+                      - grid-template-areas: '"i window" "n n" "s s" "misc temp"'
+                      - grid-template-columns: 1fr 60%
+                      - grid-template-rows: 1fr 1fr 1fr 1fr
+                    state:
+                      - font-size: 14px
+                      - font-weight: 300
+                      - align-self: start
+                      - justify-self: start
+                      - padding-top: 4px
+                    custom_fields:
+                      window:
+                        - pointer-events: auto
+                      temp:
+                        - pointer-events: auto
+                    tap_action:
+                      action: none
+                      custom_fields:
+                        window:
+                          - pointer-events: auto
+                        temp:
+                          - pointer-events: auto
+                  custom_fields:
+                    window:
+                      card:
+                        type: custom:button-card
+                        template: subsection_window
+                        show_icon: true
+                        icon: mdi:arrow-up-bold-circle-outline
+                        tap_action:
+                          confirmation:
+                            text: Open Roof Window?
+                          action: call-service
+                          service: cover.open_cover
+                          service_data:
+                            entity_id: cover.cube_roof_window
+                    temp:
+                      card:
+                        type: custom:button-card
+                        template: subsection_window
+                        show_icon: true
+                        icon: mdi:arrow-down-bold-circle-outline
+                        styles:
+                          card:
+                            - padding-top: 0px !important
+                        tap_action:
+                          confirmation:
+                            text: Close Roof Window?
+                          action: call-service
+                          service: cover.close_cover
+                          service_data:
+                            entity_id: cover.cube_roof_window
+  - title: ''
+    icon: mdi:face-woman
+    path: barus
+    badges: []
+    cards:
+      - type: custom:mod-card
+        style: |
+          :host {padding: 0px 0px}
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:button-card
+              template: customcard_graph_apex
+              variables:
+                entity_temp: sensor.barusroom_temperature
+                entity_hum: sensor.barusroom_humidity
+                entity_target: climate.trv_bedroom
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  name: Desk Lamp
+                  entity: light.hue_bulb_barus
+                  icon: mdi:desk-lamp
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  name: Floor Lamp
+                  entity: light.hue_bulb_barus2
+                  icon: mdi:floor-lamp
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: Corner Lamp
+                  entity: light.cube_gallery
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: Window 1
+                  entity: binary_sensor.barus_window_1
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: Window 2
+                  entity: binary_sensor.barus_window_2
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: Window 3
+                  entity: binary_sensor.barus_window_3
+  - title: Stairs
+    path: stairs
+    icon: mdi:stairs
+    badges: []
+    cards:
+      - type: custom:mod-card
+        card:
+          type: vertical-stack
+          cards:
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: Hallway
+                  entity: light.entrance
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: Stairs
+                  entity: light.stairs
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: Hall 0
+                  entity: light.hall_floor_0
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  name: Hall 1
+                  entity: light.hall_floor_1
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  name: Hall 2
+                  entity: light.hall_floor_2
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  variables:
+                    entity: '[[[ return entity.entity_id ]]]'
+                    name: Store room
+                  name: '[[[ return variables.name ]]]'
+                  entity: light.storeroom
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: Window
+                  entity: binary_sensor.window_roof_contact
+  - title: Bathroom
+    path: bathroom
+    icon: mdi:shower
+    badges: []
+    cards:
+      - type: custom:mod-card
+        card:
+          type: vertical-stack
+          cards:
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  name: Light
+                  entity: light.bathroom
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  entity: sensor.washing_machine_gui
+                  tap_action:
+                    action: call-service
+                    service: switch.turn_off
+                    service_data:
+                      entity_id: switch.washing_machine_empty
+                    confirmation:
+                      text: Are you sure?
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: Window
+                  entity: binary_sensor.window_bathroom
+  - title: Toilet
+    path: toilet
+    icon: mdi:toilet
+    badges: []
+    cards:
+      - type: custom:mod-card
+        card:
+          type: vertical-stack
+          cards:
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  name: WC
+                  entity: light.wc
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action
+                  name: WC
+                  entity: binary_sensor.wc_window
+  - title: Laundry
+    path: laundry
+    icon: mdi:tshirt-crew
+    badges: []
+    cards:
+      - type: custom:mod-card
+        card:
+          type: vertical-stack
+          cards:
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - lightpopup_cct
+                  name: Ceiling
+                  entity: light.laundry
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - card_hide_unavailable
+                  name: XMas Star
+                  entity: switch.zb_switch1
+                  icon: mdi:star-outline
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  name: Window
+                  entity: binary_sensor.laundry_window
+  - title: House
+    path: house
+    icon: mdi:home-circle-outline
+    badges: []
+    cards:
+      - type: custom:mod-card
+        card:
+          type: vertical-stack
+          cards:
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.gate_state
+                  name: Gate
+                  icon: |
+                    [[[ 
+                        return (entity.state === 'on' ? 'mdi:gate-open' : 'mdi:gate');
+                    ]]]
+                  tap_action:
+                    confirmation:
+                      text: >
+                        [[[ if (states['binary_sensor.gate_state'].state ==
+                        "off")
+                          return 'Confirm Open'; else return "Confirm Close"; ]]]
+                    action: call-service
+                    service: switch.turn_on
+                    service_data:
+                      entity_id: >
+                        [[[ if (states['binary_sensor.gate_state'].state ==
+                        "off")
+                          return 'switch.gate_open'; else return "switch.gate_close"; ]]]
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.doorsensor_main_contact
+                  name: Main Door
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.cube_door_front
+                  name: Cube Front
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.cube_door_garden
+                  name: Cube Garden
+                - type: custom:button-card
+                  template: mycustomcard_action
+                  entity: binary_sensor.door_dining
+                  name: Dining Garden
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  entity: light.cube_garden
+                  icon: mdi:track-light
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                  entity: light.cube_front
+                  icon: mdi:track-light
+                - type: custom:button-card
+                  template:
+                    - mycustomcard_action_toggle
+                    - card_hide_unavailable
+                  entity: switch.zb_switch1
+                  name: XMass Tree Garden
+                  icon: mdi:pine-tree
+            - type: grid
+              cards:
+                - type: custom:button-card
+                  name: Garbage
+                  template: mycustomcard2
+                  entity: binary_sensor.cube_door_garden
+                  show_icon: false
+                  tap_action:
+                    action: none
+                  styles:
+                    card:
+                      - background-color: >
+                          [[[ if (states['binary_sensor.garbage_mixed'].state ==
+                          'on' || states['binary_sensor.garbage_bio'].state ==
+                          'on') return 'var(--tile-on-background)'; else return
+                          'var(--tile-background)'; ]]]
+                    name:
+                      - color: >
+                          [[[ if (states['binary_sensor.garbage_mixed'].state ==
+                          'on' || states['binary_sensor.garbage_bio'].state ==
+                          'on') return 'var(--tile-on-name-text-color)'; else
+                          return 'var(--tile-name-text-color)'; ]]]
+                    custom_fields:
+                      window:
+                        - pointer-events: auto
+                      temp:
+                        - pointer-events: auto
+                  custom_fields:
+                    window:
+                      card:
+                        type: custom:button-card
+                        template: subsection_window
+                        entity: binary_sensor.garbage_mixed
+                        tap_action:
+                          confirmation:
+                            text: Confirm pulling MIXED container out
+                          action: >
+                            [[[ return
+                            (states['binary_sensor.garbage_mixed'].state ==
+                            'off' ? 'none' : 'call-service') ]]]
+                          service: svc2evnt.fire_event
+                          service_data:
+                            event_type: garbage
+                            data:
+                              domain: mixed
+                              action: PULLEDOUT
+                    temp:
+                      card:
+                        type: custom:button-card
+                        template: subsection_window
+                        entity: binary_sensor.garbage_bio
+                        tap_action:
+                          confirmation:
+                            text: Confirm pulling BIO container out
+                          action: >
+                            [[[ return
+                            (states['binary_sensor.garbage_bio'].state == 'off'
+                            ? 'none' : 'call-service') ]]]
+                          service: svc2evnt.fire_event
+                          service_data:
+                            event_type: garbage
+                            data:
+                              domain: bio
+                              action: PULLEDOUT
+                - type: custom:button-card
+                  template: mycustomcard
+                  name: Garden
+                  entity: light.wc
+                  icon: mdi:flower
+                  tap_action:
+                    navigation_path: garden
+  - title: HP Deskjet
+    path: hp-deskjet
+    icon: mdi:printer
+    badges: []
+    cards:
+      - type: custom:auto-entities
+        card:
+          type: entities
+        filter:
+          include:
+            - type: ''
+            - device: HP DeskJet 2600 series
+          exclude: []
+        sort:
+          method: none
+  - theme: Backend-selected
+    title: garden
+    path: garden
+    icon: mdi:flower
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - entity: switch.watervalve_state
+          - entity: select.watervalve_mode
+          - entity: number.watervalve_irrigation_target
+            type: custom:numberbox-card
+            min: '1'
+            max: '1000'
+            step: '1'
+            name: Mins or Litres
+            icon: mdi:repeat-variant
+            unit: false
+          - entity: number.watervalve_cycle_irrigation_num_times
+            type: custom:numberbox-card
+            min: '0'
+            max: '100'
+            step: '1'
+            name: Cycles
+            icon: mdi:repeat-variant
+            unit: false
+          - entity: number.watervalve_cycle_irrigation_interval
+            type: custom:numberbox-card
+            min: '0'
+            max: '100'
+            step: '5'
+            name: Pauses (min)
+            icon: mdi:pause-circle-outline
+            unit: false
+          - entity: sensor.watervalve_irrigation_start_time
+          - entity: sensor.watervalve_irrigation_end_time
+          - entity: sensor.watervalve_last_irrigation_duration
+          - entity: sensor.watervalve_water_consumed
+          - entity: sensor.watervalve_endtime_local
+          - entity: sensor.watervalve_starttime_local
+          - entity: sensor.watervalve_irrigation_progress
+            type: custom:bar-card
+            state_color: true
+            positions:
+              icon: 'off'
+              indicator: 'off'
+              minmax: 'off'
+              title: 'off'
+              name: 'off'
+              value: inside
+            style: |
+              ha-card {box-shadow: none} 
+              .card-content {padding: 0px}
+              bar-card-value { margin-right: auto;}
