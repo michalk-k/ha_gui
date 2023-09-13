@@ -1,11 +1,13 @@
 # ha_gui
 
 # Dependencies
-Following modules are used by my GUI:
-## Mandatory
+The following modules are used by my GUI:
+
+**Mandatory**
 * button-card/button-card.js
 * lovelace-card-mod/card-mod.js
-## Optional
+
+**Optional**
 * apexcharts-card/apexcharts-card.js
 * bar-card/bar-card.js
 * group-card/group-card.js
@@ -14,7 +16,7 @@ Following modules are used by my GUI:
 * light-popup-card/light-popup-card.js
 * numberbox-card/numberbox-card.js
 
-## I'm not sure
+**I'm not sure**
 * lovelace-card-tools/card-tools.js
 
 # Structure
