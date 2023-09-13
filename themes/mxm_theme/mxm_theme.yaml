@@ -1,0 +1,73 @@
+# Theme based on Google app dark theme
+# Creator: Juan - @juanmtech
+# Website: https://www.juanmtech.com
+# YouTube Channel: https://youtube.com/juanmtech
+# My Home Assistant Config files: https://github.com/JuanMTech/Home_Assistant_files
+#
+#
+mxm_theme:
+  modes:
+    dark:
+      # Header:
+   
+      primary-text-color: rgba(255,255,255,0.6)
+      sidebar-icon-color: rgba(255,255,255,0.1)
+      
+      #MXM
+      tile-background: rgba(180, 180, 180, 0.1)
+      tile-on-background: rgba(255, 255, 255, 0.15)
+      
+      tile-name-text-color: rgba(255, 255, 255, 0.3)
+      tile-on-name-text-color: rgba(255, 255, 255, 0.5)
+      
+      tile-state-text-color: rgba(255, 255, 255, 0.3)
+      tile-on-state-text-color: rgba(255, 255, 255, 0.5)
+      
+      # Buttons
+      paper-item-icon-color: rgba(255,255,255, 0.1)
+      paper-item-icon-active-color: rgba(253, 216, 53, 0.6)
+      
+      weather-icon-cloud-front-color: rgba(249, 249, 249, 0.5)
+      weather-icon-sun-color: rgba(253, 217, 60, 0.5)
+      weather-icon-cloud-back-color: rgba(212, 212, 212, 0.5)
+      
+      ha-card-border-width: 0px
+      ha-card-border-radius: 8px
+      
+    light:
+     
+      
+      #MXM
+      tile-background: rgba(255, 255, 255, 0)
+      tile-on-background: rgba(255, 255, 255, 1)
+      tile-on-name-text-color: rgba(0,0,0,1)
+      tile-name-text-color: rgba(0, 0, 0, 0.4)
+      
+      paper-item-icon-color: rgb(0,0,0,0.1)
+      paper-item-icon-active-color: var(--state-light-active-color)
+
+      ha-card-border-width: 0px
+      ha-card-border-radius: 8px
+
+  active-color: var(--tile-state-text-color)
+  user-select: none
+
+
+  card-mod-theme: "mxm_theme"
+  header-height: 34px # Change this to 0px for header on the bottom. You're 1/3 there.
+  card-mod-root-yaml: |
+      ha-menu-button$: |
+        ha-icon-button {display:none}
+      ha-tabs$: |
+        #tabsContent {
+          width: 97% !important;
+        }
+        paper-icon-button {
+          display: none;
+        }
+        #selectionBar {transform: translateX(0%) scaleX(0.0445123);}
+      .: |
+        paper-tab {
+          padding: 0px 4px;
+        }
+        div.action-items {display: none}
