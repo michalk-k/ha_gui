@@ -3,6 +3,7 @@
 # Dependencies
 The following modules are used by my GUI:
 
+## JS Modules
 **Mandatory**
 * button-card/button-card.js
 * lovelace-card-mod/card-mod.js
@@ -18,6 +19,20 @@ The following modules are used by my GUI:
 
 **I'm not sure**
 * lovelace-card-tools/card-tools.js
+
+##Theme
+Most styling aspects needed for tiles and overall appearance on mobile devices (iPhones) are implemented using my theme (see `themes/mxm_theme/`)
+To make this theme permament I run it as a `backend prefered theme`. To achieve that following automation has to be run on HA startup:
+```yaml
+alias: Set Home Assistant theme at startup
+trigger:
+  - platform: homeassistant
+    event: start
+action:
+  - service: frontend.set_theme
+    data:
+      name: mxm_theme
+```
 
 # Structure
 The UI is build with use of button-card templates exclusively. The dashboard yaml starts with the definition of all needed templates. Those sets all trickery needed to create the UI further with minimal code.
