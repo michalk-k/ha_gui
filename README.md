@@ -64,8 +64,17 @@ Obviously, all of them may be extended by using custom-card features. However, t
 * card_hide_unavailable - template hiding the card if an entity is unavailable
 
 ## Main page:
-Tiles on this page are divided can display name and information in the tile corners:
-* top-left - icon indicating state of all lights in the room. The icon and state is determined by entity assigned to the card
+
+![IMG_4624](https://github.com/michalk-k/ha_gui/assets/7868445/4d6e0ffb-3466-4994-b0e3-9021a1d5dc6c)
+
+Weather uses HA native weather-forecast card.
+Tiles represent rooms or their groups (ie whole house).\
+Click on the tile opens page for the room.\
+Hold on tile turns off all lights in the room.
+
+Tiles on this page are divided into 5 areas:
+* name of the room
+* top-left - icon indicating state of all lights in the room. The icon and state is determined by entity assigned to the card. The entity is obviously a `light-group`
 * top-right - icon indicating state of all opened windows/doors in the room. It requires embedding another card to show something. In our case it's another custom-button card, templated with `subsection_window`
 * bottom-left - list of extra features in the room (ie enabled printing, rain, tv etc). Only enabled features are shown, otherwise are hidden. It requires embedding of horizontal-stack (native) with custom-button cards templated with `subsection_bottom` as well as `subsection_hide_inactive` and `card_hide_unavailable` for hiding inactive indicators
 * bottom-right - temperature of the room. It requires embedding another card to show something. In our case it's another custom-button card, templated with `subsection_temp`
