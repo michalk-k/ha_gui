@@ -1,7 +1,7 @@
 # ha_gui
 
 # Dependencies
-The following modules are used by my GUI:
+There are the following prerequisites:
 
 ## JS Modules
 **Mandatory**
@@ -20,9 +20,9 @@ The following modules are used by my GUI:
 **I'm not sure**
 * lovelace-card-tools/card-tools.js
 
-##Theme
+## Theme
 Most styling aspects needed for tiles and overall appearance on mobile devices (iPhones) are implemented using my theme (see `themes/mxm_theme/`)
-To make this theme permament I run it as a `backend prefered theme`. To achieve that following automation has to be run on HA startup:
+To make this theme permanent I run it as a `backend preferred theme`. To achieve that following automation has to be run on HA startup:
 ```yaml
 alias: Set Home Assistant theme at startup
 trigger:
