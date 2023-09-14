@@ -4,18 +4,20 @@
 There are the following prerequisites:
 
 ## JS Modules
-**Mandatory**
-* button-card/button-card.js
-* lovelace-card-mod/card-mod.js
+**mandatory**
+* custom:button-card
+* custom:card-mod
+* custom:mod-card
+* custom:stack-in-card
+* custom:light-popup-card
+* custom:light-entity-card
+* custom:apexcharts-card
 
-**Optional**
-* apexcharts-card/apexcharts-card.js
-* bar-card/bar-card.js
-* group-card/group-card.js
-* ha-card-weather-conditions/ha-card-weather-conditions.js
-* light-entity-card/light-entity-card.js
-* light-popup-card/light-popup-card.js
-* numberbox-card/numberbox-card.js
+**optional**
+Those cards are used by selected pages expicitely like printer status or springler control
+* custom:numberbox-card
+* custom:bar-card
+* custom:auto-entities
 
 **I'm not sure**
 * lovelace-card-tools/card-tools.js
