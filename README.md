@@ -41,13 +41,16 @@ The UI is build with use of button-card templates exclusively. The dashboard yam
 
 Each page consists of the following structure:
 * custom:mod-card - it will wrap vertical-stack to take control over its padding
-* vertical-stack (native) - allows dividing UI into vertical sections (like light switches, window statuses etc) 
-* grid (native) - creates grid with 3 columns and an infinity number of rows.
-* tiles are based on button-card template(s), which can be configured in different way, passing entity to them, extending with other templates etc
+* vertical-stack (HA native) - allows dividing UI into vertical sections (like light switches, window statuses etc). Not used on main page.
+* grid (HA native) - creates grid with 3 columns and an infinity number of rows.
+* tiles are based on a highly configurable button-card template(s).
 
 # The Tile usage
-The tile uses preconfigured templates which can be added to main tail template(s).
-Obviously, all of them may be extended by using custom-card features. However, there are some ready-to-use pre-configured features like entity_id:
+The tile uses preconfigured templates. Mostly any tile has associated one template, affecting it's major functionality, then optionally might be extended by other templates.
+Obviously, all of them may be extended by using custom-card features.\
+
+
+Worth to mention, cards displaying multiple entities at once, are built from embedded custom-cards one into each other. As exaple: 
 
 **Tile templates:** 
 * mycustomcard - template of the tile card to be used on main page of UI.
@@ -55,6 +58,8 @@ Obviously, all of them may be extended by using custom-card features. However, t
 * mycustomcard_action_toggle - template representing light or other on/off entity/appliance
 * customcard_graph_apex - tile with apexchart, preconfigured for showing temperature, target temperature and humidity
 * customcard_21wrapper- kind of universal card, used only for weather on the main page
+
+Anote most of cards accepts provides `entity` attribute to pass entity to be controlled or to display its state
 
 **Tile feature templates:**
 * lightpopup_dim - extends `mycustomcard_action_toggle` for support of dimming light
@@ -85,7 +90,14 @@ You may find that tiles on this page are divided into 5 areas:
 <img width="50%" src="https://github.com/michalk-k/ha_gui/assets/7868445/c3418206-8434-4012-b1ea-333779a4e3ac" alt="Single room" />
 
 Top of the view is reserved for a temperature and humidity glance. It uses apex-chart card embedded with the use of `customcard_graph_apex` template.
-Other cards have the functionality of light switches or indicate a state of windows/doors. 
+Other cards have the functionality of light switches or indicate the state of windows/doors. 
+
+Most cards in the room view have a bit different layout
+* name of the entity
+* state of the entity
+* top-left - icon indicating state of the entity
+
+Some has additional items like up/down controls for roof window, or indicators for type of recycled trash collection.
 
 **Lights/switches**
 To create a tile with the ability to turn on/off, `mycustomcard_action_toggle` template has to be used.
