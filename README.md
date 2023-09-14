@@ -57,30 +57,42 @@ Obviously, all of them may be extended by using custom-card features. However, t
 **Tile feature templates:**
 * lightpopup_dim - extends `mycustomcard_action_toggle` for support of dimming light
 * lightpopup_rgb - extends `mycustomcard_action_toggle` for support of rgb light
+* lightpopup_cct - extends `mycustomcard_action_toggle` for support of rgb light
 * subsection_window - template used for styling window state indication inside `mycustomcard`
 * subsection_temp - template used for styling temperature indication inside the `mycustomcard`
 * subsection_bottom - template used for styling in the bottom-left corner
 * subsection_hide_inactive - template hiding the card if an entity is off
 * card_hide_unavailable - template hiding the card if an entity is unavailable
 
-## Main page:
-
-![IMG_4624](https://github.com/michalk-k/ha_gui/assets/7868445/4d6e0ffb-3466-4994-b0e3-9021a1d5dc6c)
+## House overview:
+<img width="50%" src="https://github.com/michalk-k/ha_gui/assets/7868445/4d6e0ffb-3466-4994-b0e3-9021a1d5dc6c" alt="House overview" />
 
 Weather uses HA native weather-forecast card.
 Tiles represent rooms or their groups (ie whole house).\
 Click on the tile opens page for the room.\
 Hold on tile turns off all lights in the room.
 
-Tiles on this page are divided into 5 areas:
+You may find that tiles on this page are divided into 5 areas:
 * name of the room
 * top-left - icon indicating state of all lights in the room. The icon and state is determined by entity assigned to the card. The entity is obviously a `light-group`
-* top-right - icon indicating state of all opened windows/doors in the room. It requires embedding another card to show something. In our case it's another custom-button card, templated with `subsection_window`
-* bottom-left - list of extra features in the room (ie enabled printing, rain, tv etc). Only enabled features are shown, otherwise are hidden. It requires embedding of horizontal-stack (native) with custom-button cards templated with `subsection_bottom` as well as `subsection_hide_inactive` and `card_hide_unavailable` for hiding inactive indicators
-* bottom-right - temperature of the room. It requires embedding another card to show something. In our case it's another custom-button card, templated with `subsection_temp`
+* top-right - icon indicating state of all opened windows/doors in the room. It requires embedding another card to show something. In our case, it's another custom-button card, templated with `subsection_window`
+* bottom-left - list of extra features in the room (ie enabled printing, rain, tv etc). Only enabled features are shown, otherwise are hidden. It requires embedding of horizontal-stack (HA native) with custom-button cards templated with `subsection_bottom` as well as `subsection_hide_inactive` and `card_hide_unavailable` for hiding inactive indicators
+* bottom-right - temperature of the room. It requires embedding another card to show something. In our case, it's another custom-button card, templated with `subsection_temp`
+
+## Room view
+<img width="50%" src="https://github.com/michalk-k/ha_gui/assets/7868445/c3418206-8434-4012-b1ea-333779a4e3ac" alt="Single room" />
+
+Top of the view is reserved for a temperature and humidity glance. It uses apex-chart card embedded with the use of `customcard_graph_apex` template.
+Other cards have the functionality of light switches or indicate a state of windows/doors. 
+
+**Lights/switches**
+To create a tile with the ability to turn on/off, `mycustomcard_action_toggle` template has to be used.
+RGB, CCT, and dimmable lights provide a popup with extended control, enabled by pressing and holding the tile. That functionality is enabled by using additional templates:  `lightpopup_rgb`, `'lightpopup_cct`, or `lightpopup_dim`
+
+**Windows**
+My house is equipped with tilting windows. I use Shelly sensors which provide tilt angle information next to open/close. Using this information GUI provides a graphical cue about window state: either opened, closed or tilted.
 
 Example:
-![image](https://github.com/michalk-k/ha_gui/assets/7868445/4f9ecd36-a5a6-4fa0-9ea6-1d48319eae1b)
-
+<img width="50%" src="https://github.com/michalk-k/ha_gui/assets/7868445/4f9ecd36-a5a6-4fa0-9ea6-1d48319eae1b" alt="Fragment of code" />
 
    
