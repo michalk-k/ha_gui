@@ -37,20 +37,35 @@ action:
 ```
 
 # Structure
-The UI is build with use of button-card templates exclusively. The dashboard yaml starts with the definition of all needed templates. Those sets all trickery needed to create the UI further with minimal code.
+The UI is built with tiles made of top-level button-cards, embedding other button-cards. The dashboard yaml starts with the definition of all needed templates. Those sets all trickery needed to create the UI further with minimal code.
 
-Each page consists of the following structure:
-* custom:mod-card - it will wrap vertical-stack to take control over its padding
+Each page consists of the similar structure:
+* custom:mod-card - it will wrap vertical-stack to take control over view padding
 * vertical-stack (HA native) - allows dividing UI into vertical sections (like light switches, window statuses etc). Not used on main page.
-* grid (HA native) - creates grid with 3 columns and an infinity number of rows.
+* grid (HA native) - creates grid with 3 columns and an infinite number of rows.
 * tiles are based on a highly configurable button-card template(s).
 
-# The Tile usage
-The tile uses preconfigured templates. Mostly any tile has associated one template, affecting it's major functionality, then optionally might be extended by other templates.
-Obviously, all of them may be extended by using custom-card features.\
+# The Tile
+The tile uses preconfigured templates. Mostly any tile has associated one template, affecting it's major functionality, then optionally extended by other templates.
+Obviously, all of them may be extended by using custom-card features.
 
+Worth mentioning, tiles that show multiple entities, are built from embedded custom-button cards one into another.
 
-Worth to mention, cards displaying multiple entities at once, are built from embedded custom-cards one into each other. As exaple: 
+All tiles (except of special ones like weather of temperature) inherit from custom tile which divides its area into a grid: top-left corner, top-right corner, name (middle), state (middle), bottom-left corner, and bottom-right corner. Those sub-areas may be used differently depending on use-case. Main page tiles differ from room tiles by functionality:
+
+**Main page tile**
+
+![image](https://github.com/michalk-k/ha_gui/assets/7868445/a52847a6-a68f-4b2b-9b56-17141a65190e)
+
+Each tile represents an overview of a room or location, described by tile name.
+
+Click on the tile - opens a view of a particular room/location.
+Long Press on the tile - turns off all main lights in the location. Additional lights like night lighting and Christmas tree lights might remain on.
+Upper-left icon - indicates if any of the main lights found in the room/location are turned on.
+Upper-right icon - indicates if any of the windows/doors in the room/location is open or tilted. If at least one window is open, the icon shows an open window. If none are wide-open but at least one is tilted, the icon of the tilted window is shown. 
+Bottom-right icon - shows the current temperature of the room/location
+Bottom-left corner - it's a special container to show special features enabled in a particular room/location. It may be printer printing or night lamp, washing machine, Christmas tree etc. Those icons appear only if particular feature is enabled. Number of icons is not limited, however mobile app provides space for max 3 icons.
+
 
 **Tile templates:** 
 * mycustomcard - template of the tile card to be used on main page of UI.
