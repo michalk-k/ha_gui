@@ -67,6 +67,7 @@ Each tile represents an overview of a room or location given by a tile name. It 
 * Bottom-left corner - it's a special container to show special features enabled in a particular room/location. It may be printer printing or night lamp, washing machine, Christmas tree etc. Those icons appear only if a particular feature is enabled. Number of icons is not limited, however mobile app provides space for max 3 icons.
 
 Tile showing house overview differs a bit:
+
 ![image](https://github.com/michalk-k/ha_gui/assets/7868445/a52847a6-a68f-4b2b-9b56-17141a65190e)
 
 * Click on the tile - opens a view with all entrances to the building, gate and outside lights controls
@@ -74,6 +75,7 @@ Tile showing house overview differs a bit:
 * Upper-left icon - shows either all entrances are closed or open
 * Upper-right icon - shows the state of a gate
 * Bottom-left corner - as above.
+* No temperature in the bottom-right corner
 
 
 **Tile templates:** 
