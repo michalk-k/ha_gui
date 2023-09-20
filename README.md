@@ -57,14 +57,14 @@ All tiles (except of special ones like weather of temperature) inherit from cust
 
 ![image](https://github.com/michalk-k/ha_gui/assets/7868445/a52847a6-a68f-4b2b-9b56-17141a65190e)
 
-Each tile represents an overview of a room or location, described by tile name.
+Each tile represents an overview of a room or location given by a tile name. It boasts of following features:
 
-Click on the tile - opens a view of a particular room/location.
-Long Press on the tile - turns off all main lights in the location. Additional lights like night lighting and Christmas tree lights might remain on.
-Upper-left icon - indicates if any of the main lights found in the room/location are turned on.
-Upper-right icon - indicates if any of the windows/doors in the room/location is open or tilted. If at least one window is open, the icon shows an open window. If none are wide-open but at least one is tilted, the icon of the tilted window is shown. 
-Bottom-right icon - shows the current temperature of the room/location
-Bottom-left corner - it's a special container to show special features enabled in a particular room/location. It may be printer printing or night lamp, washing machine, Christmas tree etc. Those icons appear only if particular feature is enabled. Number of icons is not limited, however mobile app provides space for max 3 icons.
+* Click on the tile - opens a view of a particular room/location.
+* Long Press on the tile - turns off all main lights in the location. Additional lights like night lighting and Christmas tree lights might remain on.
+* Upper-left icon - indicates if any of the main lights found in the room/location are turned on.
+* Upper-right icon - indicates if any of the windows/doors in the room/location are open or tilted. If at least one window is open, the icon shows an open window. If none are wide open but at least one is tilted, the icon of the tilted window is shown. 
+* Bottom-right icon - shows the current temperature of the room/location
+* Bottom-left corner - it's a special container to show special features enabled in a particular room/location. It may be printer printing or night lamp, washing machine, Christmas tree etc. Those icons appear only if a particular feature is enabled. Number of icons is not limited, however mobile app provides space for max 3 icons.
 
 
 **Tile templates:** 
